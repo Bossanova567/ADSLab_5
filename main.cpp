@@ -1,15 +1,36 @@
 #include "Sort.h"
 
 int main(){
-    int n;
-    cout << "Enter the length of an array: " << endl;
+    int n; // n - кількість елементів масиву
+    label:
+    cout << "Enter the length of an array:";
     cin >> n;
-    int* A[n];
-    for (int i = 0; i < n; i++){
-        cout << "Enter the data: " << endl;
-        cin >> *A[i];
+    if (cin.fail()){
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Do NOT type letters or words. Try again" << endl;
+        goto label;
     }
-    Show(A, n);
-    MergeSort(A,floor(n/2), ceil(n/2));
-    Show(A, n);
+    if (n <= 0) {
+        cout << "The length of array can't be " << n << endl;
+        goto label;
+    }
+    else {
+        int *A = new int[n];
+        for (int i = 0; i < n; i++) {
+            cout << "Enter the data: " << endl;
+            cin >> A[i];
+            if (cin.fail()){
+                cin.clear();
+                cin.ignore(100, '\n');
+                cout << "Do NOT type letters or words. Try again" << endl;
+                goto label;
+            }
+        }
+        cout << "The array before sorting: ";
+        Show(A, n);
+        MergeSort(A, 0, n);
+        cout << "The array after sorting: ";
+        Show(A, n);
+    }
 }
